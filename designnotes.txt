@@ -1,0 +1,12 @@
+Music festival incremental
+
+'prestige' is automatic and happens every "year" in the form of DerpFest 0X
+
+can increase number of days as an upgrade
+
+need to hire attractions to increase demand, provide amenities to increase retention, and earn satisfaction (prestige currency that can be used to upgrade demand or retention)
+
+hidden values: 
+	safety, fun, average spent per visitor, havoc
+
+
