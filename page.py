@@ -3,18 +3,18 @@ from flask import (
 	)
 from werkzeug.exceptions import abort
 
-from incremental.auth import login_required
-from incremental.db import get_db
-import incremental.engine
+from itb_incremental.auth import login_required
+from itb_incremental.db import get_db
+import itb_incremental.engine
 
-bp = Blueprint('blog',__name__)
+bp = Blueprint('page',__name__)
 
 @bp.route('/')
 @login_required
 def index():
 	db = get_db()
 
-	jobs = db.execute('SELECT id, name, type, reward, length, description, level FROM jobs').fetchall()
+	jobs = db.execute('SELECT id, name, type, reward, length, description, level FROM jobs WHERE available="true"').fetchall()
 	return render_template('page/index.html', jobs=jobs)
 
 	# posts = db.execute('SELECT p.id, title, body, created, author_id, username FROM post p JOIN user u ON p.author_id = u.id ORDER BY created DESC').fetchall()
@@ -34,7 +34,7 @@ def index():
 
 
 ########everything below is from when this was a blog tutorial. Keeping the bones for reference, but will need to remove prior to release
-# ''' #comment this line out to get syntax highlighting
+''' #comment this line out to get syntax highlighting
 @bp.route('/create', methods=('GET','POST'))
 @login_required
 def create():

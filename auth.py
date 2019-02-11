@@ -6,7 +6,7 @@ from flask import (
 from flask.ext.session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from incremental.db import get_db
+from itb_incremental.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 

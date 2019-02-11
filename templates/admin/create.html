@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}ITB_Incremental Database tool{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  	<form method="post">
+  		{% for col in fields['colsJobs'] %}
+  			{% if col != "description" %}
+	  			<label for="{{ col }}"></label>
+	  			<input name="{{ col }}" id="{{col}}" required>
+	  		{% endif %}
+		{% endfor %}
+		<textarea name="description" id="description"></textarea>
+		<input type="submit" value="Submit new Job" name="submitJob">
+	</form>
+
+	<form method="post">
+  		{% for col in fields['colsShips'] %}
+  			{% if col != "description" %}
+	  			<label for="{{ col }}"></label>
+	  			<input name="{{ col }}" id="{{col}}" required>
+	  		{% endif %}
+		{% endfor %}
+		<textarea name="description" id="description"></textarea>
+		<input type="submit" value="Submit new Ship" name="submitShip">
+	</form>
+
+	<form method="post">
+  		{% for col in fields['colsCrew'] %}
+  			{% if col != "description" %}
+	  			<label for="{{ col }}"></label>
+	  			<input name="{{ col }}" id="{{col}}" required>
+	  		{% endif %}
+		{% endfor %}
+		<textarea name="description" id="description"></textarea>
+		<input type="submit" value="Submit new Crew" name="submitCrew">
+	</form>
+
+  <!-- <form method="post">
+    <label for="title">Title</label>
+    <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    <label for="body">Body</label>
+    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <input type="submit" value="Save">
+  </form> -->
+{% endblock %}

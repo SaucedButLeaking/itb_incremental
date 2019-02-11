@@ -2,12 +2,14 @@
 
 #script assumes the following two environement variables ahve been set:
 
-  # 84  export FLASK_APP=flaskr
+  # 84  export FLASK_APP=itb_incremental
   # 85  export FLASK_ENV=development
 
 import os
 
-from flask import Flask
+from flask import Flask, session
+from flask.ext.session import Session
+
 def create_app(test_config=None):
 	#create and configure the app
 	app = Flask(__name__, instance_relative_config=True)
@@ -40,14 +42,14 @@ def create_app(test_config=None):
 	def hello():
 		return 'Hello, world!'
 
-	from . import db # import flaskr/db.py
+	import db # from . import db # import flaskr/db.py
 	db.init_app(app)
 
-	from . import auth # import flaskr/auth.py
+	import auth # from . import auth # import flaskr/auth.py
 	app.register_blueprint(auth.bp) #gives views to register new users and log them in and out
 
-	from . import blog
-	app.register_blueprint(blog.bp)
+	import page # from . import page
+	app.register_blueprint(page.bp)
 	app.add_url_rule('/', endpoint='index')
 
 	return app

@@ -3,7 +3,7 @@
 {% block header %}
   <h1>{% block title %}Jobs{% endblock %}</h1>
   {% if session['privileges'] == 42 %}
-    <a class="action" href="{{ url_for('admin.createJob') }}">(admin) Create new job</a>
+    <a class="action" href="{{ url_for('admin.create') }}">(admin) Create new job</a>
   {% endif %}
 {% endblock %}
 

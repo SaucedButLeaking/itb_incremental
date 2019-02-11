@@ -1,8 +1,8 @@
 import sqlite3
 
 import click
-from flask import current_app, g 
-# g is a special object that is unique for each request. Is used to store data that might be accessed by multiple functions during the request. 
+from flask import current_app, g
+# g is a special object that is unique for each request. Is used to store data that might be accessed by multiple functions during the request.
 # current_app is also a special object, which points to the flask application handling therequest. "Since [we] used an application factor, there is no application object when writing the rest of [our] code"
 from flask.cli import with_appcontext
 
@@ -16,7 +16,7 @@ def get_db():
 	return g.db
 
 def close_db(e=None):
-	# if a db connection was established by the urrent request, close it
+	# if a db connection was established by the current request, close it
 	db = g.pop('db', None)
 
 	if db is not None:
@@ -32,7 +32,7 @@ def init_db():
 @click.command('init-db') # defines a command line command called 'init-db' which will call the init_db function and return a success message
 @with_appcontext
 def init_db_command():
-	"""Clear the existing data and create new tables."""
+	# Clear the existing data and create new tables.
 	init_db()
 	click.echo('Initialized the datbase.')
 
