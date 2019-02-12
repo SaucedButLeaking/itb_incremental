@@ -5,6 +5,9 @@ from flask import current_app, g
 # g is a special object that is unique for each request. Is used to store data that might be accessed by multiple functions during the request.
 # current_app is also a special object, which points to the flask application handling therequest. "Since [we] used an application factor, there is no application object when writing the rest of [our] code"
 from flask.cli import with_appcontext
+from werkzeug.security import generate_password_hash
+
+admin_password = "password" #SUPER NOT OKAY, CHANGE THIS IMMEDIATELY. WHAT AM I EVEN THINKING
 
 def get_db():
 	if 'db' not in g:
@@ -34,6 +37,9 @@ def init_db():
 def init_db_command():
 	# Clear the existing data and create new tables.
 	init_db()
+	db = get_db()
+	db.execute('INSERT INTO user (username, password, privileges, credits) VALUES ("admin", ?, 42, 1000)', (generate_password_hash(admin_password),))
+	db.commit()
 	click.echo('Initialized the datbase.')
 
 def init_app(app):

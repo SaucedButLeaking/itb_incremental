@@ -8,9 +8,9 @@
 
   	<form method="post">
   		{% for col in fields['colsJobs'] %}
-  			{% if col != "description" %}
-	  			<label for="{{ col }}"></label>
-	  			<input name="{{ col }}" id="{{col}}" required>
+  			{% if col != "description" and col != "id" %}
+	  			<label for="{{ col }}">{{ col }}:</label>
+	  			<input name="{{ col }}" id="{{ col }}" required>
 	  		{% endif %}
 		{% endfor %}
 		<textarea name="description" id="description"></textarea>
@@ -19,9 +19,9 @@
 
 	<form method="post">
   		{% for col in fields['colsShips'] %}
-  			{% if col != "description" %}
-	  			<label for="{{ col }}"></label>
-	  			<input name="{{ col }}" id="{{col}}" required>
+  			{% if col != "description" and col != "id" %}
+	  			<label for="{{ col }}"> {{ col }}: </label>
+	  			<input name="{{ col }}" id="{{ col }}" required>
 	  		{% endif %}
 		{% endfor %}
 		<textarea name="description" id="description"></textarea>
@@ -30,9 +30,9 @@
 
 	<form method="post">
   		{% for col in fields['colsCrew'] %}
-  			{% if col != "description" %}
-	  			<label for="{{ col }}"></label>
-	  			<input name="{{ col }}" id="{{col}}" required>
+  			{% if col != "description" and col != "id" %}
+	  			<label for="{{ col }}">{{ col }}:</label>
+	  			<input name="{{ col }}" id="{{ col }}" required>
 	  		{% endif %}
 		{% endfor %}
 		<textarea name="description" id="description"></textarea>

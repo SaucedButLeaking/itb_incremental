@@ -4,3 +4,7 @@ def set(key,val):
 
 def get(key):
 	return session.get(key,'error')
+
+def debug(msg):
+	with open("debug.txt","w") as f:
+		f.write(msg)

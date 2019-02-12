@@ -8,7 +8,7 @@
 import os
 
 from flask import Flask, session
-from flask.ext.session import Session
+from flask_session import Session
 
 def create_app(test_config=None):
 	#create and configure the app
@@ -42,13 +42,16 @@ def create_app(test_config=None):
 	def hello():
 		return 'Hello, world!'
 
-	import db # from . import db # import flaskr/db.py
+	from itb_incremental import db # from . import db # import flaskr/db.py
 	db.init_app(app)
 
-	import auth # from . import auth # import flaskr/auth.py
+	from itb_incremental import auth # from . import auth # import flaskr/auth.py
 	app.register_blueprint(auth.bp) #gives views to register new users and log them in and out
 
-	import page # from . import page
+	from itb_incremental import admin
+	app.register_blueprint(admin.bp)
+
+	from itb_incremental import page # from . import page
 	app.register_blueprint(page.bp)
 	app.add_url_rule('/', endpoint='index')
 

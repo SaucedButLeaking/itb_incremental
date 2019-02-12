@@ -1,11 +1,20 @@
-import itb_incremental.db
+from flask import (
+	Blueprint, flash, g, redirect, render_template, request, url_for #review these later to trim
+	)
+
+from itb_incremental.db import get_db
+from itb_incremental.auth import login_required
+from itb_incremental.functions import debug
+
+bp = Blueprint('admin',__name__)
 
 @bp.route('/create', methods=('GET','POST'))
 @login_required
 def create():
 	if request.method == 'POST':
 		submit = dict()
-		for key, val in request.form:
+		debug(str(request.form))
+		for key, val in request.form['submitJob']:
 			submit[key] = val
 		# submit['name'] = request.form['name']
 		# submit['description'] = request.form['description']
@@ -34,7 +43,7 @@ def create():
 	db = get_db()
 	cursorJobs = db.execute('select * from jobs')
 	colsJobs = [description[0] for description in cursorJobs.description] #.description is a method in sqlite
-	cursorShips = db.execute('select * from ships')
+	cursorShips = db.execute('select * from ship')
 	colsShips = [description[0] for description in cursorShips.description]
 	cursorCrew = db.execute('select * from crew')
 	colsCrew = [description[0] for description in cursorCrew.description]

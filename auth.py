@@ -3,7 +3,7 @@ import functools
 from flask import (
 	Blueprint, flash, g, redirect, render_template, request, session, url_for
 	)
-from flask.ext.session import Session
+from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from itb_incremental.db import get_db
@@ -31,7 +31,7 @@ def register():
 			# and {} does something similar with strings 
 
 		if error is None:
-			db.execute('INSERT INTO user (username, password) VALUES (?, ?)', (username, generate_password_hash(password))) # acts kinda like sprintf in PHP
+			db.execute('INSERT INTO user (username, password, privileges, credits) VALUES (?, ?, 1, 1000)', (username, generate_password_hash(password))) # acts kinda like sprintf in PHP
 			db.commit()
 			return redirect(url_for('auth.login'))
 
@@ -59,8 +59,18 @@ def login():
 			session['user_id'] = user['id']
 			session['username'] = user['username']
 			session['privileges'] = user['privileges']
-			session['ships'] = list(user['ship1'],user['ship2']) #should become a while loop to iterate over all ships, but for now this works TECHDEBT
-			session['jobs'] = list(user['ship1job'],user['ship2job']) #TECHDEBT
+			session['ships'] = list()
+			session['jobs'] = list()
+			if user['ship1']:
+				ships.append(user['ship1'])
+			if user['ship2']:
+				ships.append(user['ship2'])
+			if user['ship1job']:
+				jobs.append(user['job1'])
+			if user['ship2job']:
+				jobs.append(user['job2'])
+			# session['ships'] = list(user['ship1'],user['ship2']) #should become a while loop to iterate over all ships, but for now this works TECHDEBT
+			# session['jobs'] = list(user['ship1job'],user['ship2job']) #TECHDEBT
 			return redirect(url_for('index'))
 
 		flash(error)
