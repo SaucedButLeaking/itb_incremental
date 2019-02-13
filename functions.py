@@ -6,5 +6,5 @@ def get(key):
 	return session.get(key,'error')
 
 def debug(msg):
-	with open("debug.txt","w") as f:
-		f.write(msg)
+	with open("instance/debug.txt","a") as f:
+		f.write("\n" + msg)

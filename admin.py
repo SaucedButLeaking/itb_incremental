@@ -2,6 +2,8 @@ from flask import (
 	Blueprint, flash, g, redirect, render_template, request, url_for #review these later to trim
 	)
 
+from werkzeug import to_dict
+
 from itb_incremental.db import get_db
 from itb_incremental.auth import login_required
 from itb_incremental.functions import debug
@@ -13,11 +15,13 @@ bp = Blueprint('admin',__name__)
 def create():
 	if request.method == 'POST':
 		submit = dict()
-		debug(str(request.form))
-		for key, val in request.form['submitJob']:
+		debug(str(request.form.to_dict(flat=True)))
+		data = request.form.to_dict(flat=True)
+		# debug(str(data))
+	
+		for key, val in data:
 			submit[key] = val
-		# submit['name'] = request.form['name']
-		# submit['description'] = request.form['description']
+
 		error = None
 
 		if not any(x for x in submit):
